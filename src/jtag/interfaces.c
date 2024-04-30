@@ -23,6 +23,10 @@
 
 #include "interfaces.h"
 
+#if BUILD_CH347 == 1
+extern struct adapter_driver ch347_adapter_driver;
+#endif
+
 /** @file
  * This file collects all the built-in JTAG interfaces in the adapter_drivers
  * array.
@@ -36,6 +40,9 @@
  * drivers that were enabled by the @c configure script.
  */
 struct adapter_driver *adapter_drivers[] = {
+#if BUILD_CH347 == 1
+        &ch347_adapter_driver,
+#endif
 #if BUILD_PARPORT == 1
 		&parport_adapter_driver,
 #endif

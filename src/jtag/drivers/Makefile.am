@@ -24,6 +24,10 @@ DRIVERFILES =
 # Standard Driver: common files
 DRIVERFILES += %D%/driver.c
 
+if CH347
+DRIVERFILES += %D%/ch347.c
+endif
+
 if USE_LIBUSB1
 DRIVERFILES += %D%/libusb_helper.c
 %C%_libocdjtagdrivers_la_CPPFLAGS += $(LIBUSB1_CFLAGS)
