@@ -239,7 +239,7 @@ static const uint16_t ch347_pids[] = {0x55dd, 0x55de, 0x55e7};
 
 static uint32_t CH347OpenDevice(uint64_t iIndex)
 {
-	if (jtag_libusb_open(ch347_vids, ch347_pids,
+	if (jtag_libusb_open(ch347_vids, ch347_pids,NULL,
 			     &ch347_handle, NULL) != ERROR_OK) {
 		return false;
 	} else {
@@ -996,12 +996,16 @@ static void CH347_Sleep(int us)
 	jtag_sleep(us);
 }
 
-static int ch347_execute_queue(void)
+static int ch347_execute_queue(struct jtag_command *cmd)
 {
-	struct jtag_command *cmd;
+	// struct jtag_command *cmd;
 	int ret = ERROR_OK;
 
-	for (cmd = jtag_command_queue; ret == ERROR_OK && cmd;
+    if (cmd == NULL) {
+        cmd = jtag_command_queue_get();
+    }
+
+	for (; ret == ERROR_OK && cmd;
 	     cmd = cmd->next) {
 		switch (cmd->type) {
 		case JTAG_RESET:
