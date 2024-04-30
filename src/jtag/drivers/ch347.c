@@ -1409,7 +1409,7 @@ static void ch347_swd_queue_flush(void)
 		mLength = CH347_MAX_RECV_BUF - ch347_swd_context.recv_len;
 		if (!CH347ReadData(
         #if defined(__linux__)
-        iIndex, 
+        ugIndex, 
         #endif
         
 				   &ch347_swd_context.recv_buf[ch347_swd_context.recv_len],
