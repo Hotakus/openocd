@@ -601,7 +601,7 @@ static void telnet_auto_complete(struct connection *connection)
 
 	/* user command position in the line, ignore leading spaces */
 	size_t usr_cmd_pos = seq_start;
-	while ((usr_cmd_pos < t_con->line_cursor) && isspace(t_con->line[usr_cmd_pos]))
+	while ((usr_cmd_pos < t_con->line_cursor) && isspace((int)t_con->line[usr_cmd_pos]))
 		usr_cmd_pos++;
 
 	/* check user command length */
@@ -616,8 +616,8 @@ static void telnet_auto_complete(struct connection *connection)
 	size_t optimized_spaces = 0;
 	char query[usr_cmd_len + 1];
 	for (size_t i = 0; i < usr_cmd_len; i++) {
-		if ((i < usr_cmd_len - 1) && isspace(t_con->line[usr_cmd_pos + i])
-				&& isspace(t_con->line[usr_cmd_pos + i + 1])) {
+		if ((i < usr_cmd_len - 1) && isspace((int)t_con->line[usr_cmd_pos + i])
+				&& isspace((int)t_con->line[usr_cmd_pos + i + 1])) {
 			optimized_spaces++;
 			continue;
 		}
