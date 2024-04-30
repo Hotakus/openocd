@@ -652,6 +652,37 @@ AS_IF([test "x$enable_capstone" == xno], [
 	AC_DEFINE([HAVE_CAPSTONE], [0], [0 if you don't have Capstone disassembly framework.])
 ])
 
+m4_define([USB1_ADAPTERS],
+[[[ftdi], [MPSSE mode of FTDI based devices], [FTDI]],
+[[ch347], [Mode 3 of the CH347 devices], [CH347]],
+[[stlink], [ST-Link Programmer], [HLADAPTER_STLINK]],
+[[ti_icdi], [TI ICDI JTAG Programmer], [HLADAPTER_ICDI]],
+[[ulink], [Keil ULINK JTAG Programmer], [ULINK]],
+[[usb_blaster_2], [Altera USB-Blaster II Compatible], [USB_BLASTER_2]],
+[[ft232r], [Bitbang mode of FT232R based devices], [FT232R]],
+[[vsllink], [Versaloon-Link JTAG Programmer], [VSLLINK]],
+[[xds110], [TI XDS110 Debug Probe], [XDS110]],
+[[cmsis_dap_v2], [CMSIS-DAP v2 Compliant Debugger], [CMSIS_DAP_USB]],
+[[osbdm], [OSBDM (JTAG only) Programmer], [OSBDM]],
+[[opendous], [eStick/opendous JTAG Programmer], [OPENDOUS]],
+[[armjtagew], [Olimex ARM-JTAG-EW Programmer], [ARMJTAGEW]],
+[[rlink], [Raisonance RLink JTAG Programmer], [RLINK]],
+[[usbprog], [USBProg JTAG Programmer], [USBPROG]],
+[[aice], [Andes JTAG Programmer], [AICE]]])
+
+    AC_ARG_ENABLE([ch347],
+     AS_HELP_STRING([--enable-ch347], [Enable building support for CH347]),
+     [build_ch347=$enableval], [build_ch347=no])
+
+AS_IF([test "x$build_ch347" = "xyes"], [
+      AC_DEFINE([BUILD_CH347], [1], [1 if you want CH347.])
+     ], [
+       AC_DEFINE([BUILD_CH347], [0], [0 if you don't want CH347.])
+     ])
+
+AM_CONDITIONAL([CH347], [test "x$build_ch347" = "xyes"])
+
+
 for hidapi_lib in hidapi hidapi-hidraw hidapi-libusb; do
 	PKG_CHECK_MODULES([HIDAPI],[$hidapi_lib],[
 		use_hidapi=yes
