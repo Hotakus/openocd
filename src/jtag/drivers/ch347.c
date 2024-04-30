@@ -370,7 +370,7 @@ static int CH347_Write(void *oBuffer, unsigned long *ioLength)
 	while (1) {
 		ret = CH347WriteData(
         #if defined(__linux__)
-        iIndex, 
+        ugIndex, 
         #endif
         (uint8_t *)oBuffer + WI,
 				     &wlength);
@@ -415,7 +415,7 @@ static int CH347_Read(void *oBuffer, unsigned long *ioLength)
 	while (1) {
 		if (!CH347ReadData(
         #if defined(__linux__)
-        iIndex, 
+        ugIndex, 
         #endif
         (uint8_t *)oBuffer + WI,
 				   &rlength)) {
@@ -1396,7 +1396,7 @@ static void ch347_swd_queue_flush(void)
 						   CH347_CMD_HEADER) >> 8);
 	if (!CH347WriteData(
         #if defined(__linux__)
-        iIndex, 
+        ugIndex, 
         #endif
         ch347_swd_context.send_buf, &mLength) ||
 	    (mLength != ch347_swd_context.send_len)) {
