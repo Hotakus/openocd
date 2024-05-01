@@ -226,7 +226,7 @@ static pCH347ReadData CH347ReadData = NULL;
 static pCH347WriteData CH347WriteData = NULL;
 
 /* pCH347Jtag_INIT CH347Jtag_INIT; */
-#elif defined(__linux__)
+#else
 
 #include <jtag/drivers/libusb_helper.h>
 
